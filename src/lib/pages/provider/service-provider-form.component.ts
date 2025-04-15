@@ -45,7 +45,7 @@ export class ServiceProviderFormComponent implements OnInit {
   tabs: boolean[] = [false, false, false, false, false, false, false, false];
   isPortalAdmin = false;
 
-  requiredOnTab0 = 4;
+  requiredOnTab0 = 5;
   requiredOnTab1 = 2;
   requiredOnTab3 = 4;
   requiredOnTab4 = 2;
@@ -67,7 +67,7 @@ export class ServiceProviderFormComponent implements OnInit {
   completedTabs = 0;
   completedTabsBitSet = new BitSet;
 
-  allRequiredFields = 17;
+  allRequiredFields = 18;
   loaderBitSet = new BitSet;
   loaderPercentage = 0;
 
@@ -99,6 +99,7 @@ export class ServiceProviderFormComponent implements OnInit {
 
   readonly fullNameDesc: dm.Description = dm.providerDescMap.get('fullNameDesc');
   readonly abbreviationDesc: dm.Description = dm.providerDescMap.get('abbreviationDesc');
+  readonly nodeDesc: dm.Description = dm.providerDescMap.get('nodeDesc');
   readonly websiteDesc: dm.Description = dm.providerDescMap.get('websiteDesc');
   readonly descriptionDesc: dm.Description = dm.providerDescMap.get('descriptionDesc');
   readonly logoDesc: dm.Description = dm.providerDescMap.get('logoDesc');
@@ -156,11 +157,13 @@ export class ServiceProviderFormComponent implements OnInit {
   networksVocabulary: Vocabulary[] = null;
   societalGrandChallengesVocabulary: Vocabulary[] = null;
   hostingLegalEntityVocabulary: Vocabulary[] = null;
+  nodeVocabulary: Vocabulary[] = null;
 
   readonly formDefinition = {
     id: [''],
     name: ['', Validators.required],
     abbreviation: ['', Validators.required],
+    node: ['', Validators.required],
     website: ['', Validators.compose([Validators.required, URLValidator])],
     legalEntity: [''],
     legalStatus: [''],
@@ -471,6 +474,8 @@ export class ServiceProviderFormComponent implements OnInit {
   markTabs() {
     this.tabs[0] = (this.checkFormValidity('name', this.edit)
       || this.checkFormValidity('abbreviation', this.edit)
+      || this.checkFormValidity('node', this.edit)
+      || this.checkEveryArrayFieldValidity('catalogueId', this.edit)
       || this.checkFormValidity('website', this.edit)
       || this.checkEveryArrayFieldValidity('legalEntity', this.edit)
       || this.checkFormValidity('legalStatus', this.edit)
@@ -502,8 +507,7 @@ export class ServiceProviderFormComponent implements OnInit {
       || this.checkEveryArrayFieldValidity('certifications', this.edit));
     this.tabs[6] = (this.checkEveryArrayFieldValidity('participatingCountries', this.edit)
       || this.checkEveryArrayFieldValidity('affiliations', this.edit)
-      || this.checkEveryArrayFieldValidity('networks', this.edit)
-      || this.checkEveryArrayFieldValidity('catalogueId', this.edit));
+      || this.checkEveryArrayFieldValidity('networks', this.edit));
     this.tabs[7] = (this.checkEveryArrayFieldValidity('esfriDomains', this.edit)
       || this.checkFormValidity('esfriType', this.edit)
       || this.checkEveryArrayFieldValidity('merilScientificDomains', this.edit, 'merilScientificDomain')
@@ -523,6 +527,7 @@ export class ServiceProviderFormComponent implements OnInit {
     this.resourceService.getAllVocabulariesByType().subscribe(
       res => {
         this.vocabularies = res;
+        this.nodeVocabulary = this.vocabularies[Type.NODE];
         this.placesVocabulary = this.vocabularies[Type.COUNTRY];
         this.providerTypeVocabulary = this.vocabularies[Type.PROVIDER_STRUCTURE_TYPE];
         this.providerLCSVocabulary = this.vocabularies[Type.PROVIDER_LIFE_CYCLE_STATUS];

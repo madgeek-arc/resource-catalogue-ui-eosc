@@ -179,6 +179,7 @@ export class UpdateCatalogueComponent extends CatalogueFormComponent implements 
   initCatalogueBitSets() {
     this.handleBitSets(0, 0, 'name');
     this.handleBitSets(0, 1, 'abbreviation');
+    this.handleBitSets(0, 22, 'node');
     this.handleBitSets(0, 2, 'website');
     this.handleBitSets(0, 16, 'legalEntity');
     this.handleBitSets(0, 17, 'inclusionCriteria');

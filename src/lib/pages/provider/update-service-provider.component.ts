@@ -239,6 +239,7 @@ export class UpdateServiceProviderComponent extends ServiceProviderFormComponent
   initProviderBitSets() {
     this.handleBitSets(0, 0, 'name');
     this.handleBitSets(0, 1, 'abbreviation');
+    this.handleBitSets(0, 17, 'node');
     this.handleBitSets(0, 2, 'website');
     this.handleBitSets(0, 16, 'legalEntity');
     this.handleBitSets(1, 3, 'description');
