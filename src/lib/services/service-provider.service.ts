@@ -15,6 +15,8 @@ import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {Paging} from '../domain/paging';
 
+const CATALOGUE = environment.CATALOGUE;
+
 @Injectable()
 export class ServiceProviderService {
 
@@ -90,18 +92,24 @@ export class ServiceProviderService {
     // console.log(id)
     id = decodeURIComponent(id); // fixme me: revisit for double decode if necessary
     // console.log(id)
-    if(!catalogue_id) catalogue_id = 'eosc';
+    if(!catalogue_id) catalogue_id = CATALOGUE;
     // return this.http.get<ProviderBundle>(this.base + `/provider/bundle/${id}`, this.options);
-    return this.http.get<ProviderBundle>(this.base + `/provider/bundle/${id}?catalogue_id=${catalogue_id}`, this.options);
+    if (catalogue_id === CATALOGUE)
+      return this.http.get<ProviderBundle>(this.base + `/provider/bundle/${id}?catalogue_id=${catalogue_id}`, this.options);
+    else
+      return this.http.get<ProviderBundle>(this.base + `/catalogue/${catalogue_id}/provider/bundle/${id}`, this.options);
   }
 
   getServiceProviderById(id: string, catalogue_id?: string) {
     // console.log(id)
     id = decodeURIComponent(id); // fixme me: revisit for double decode if necessary
     // console.log(id)
-    if(!catalogue_id) catalogue_id = 'eosc';
+    if(!catalogue_id) catalogue_id = CATALOGUE;
     // return this.http.get<Provider>(this.base + `/provider/${id}`, this.options);
-    return this.http.get<Provider>(this.base + `/provider/${id}?catalogue_id=${catalogue_id}`, this.options);
+    if (catalogue_id === CATALOGUE)
+      return this.http.get<Provider>(this.base + `/provider/${id}?catalogue_id=${catalogue_id}`, this.options);
+    else
+      return this.http.get<Provider>(this.base + `/catalogue/${catalogue_id}/provider/${id}`, this.options);
   }
 
   getPendingProviderById(id: string) {
@@ -124,12 +132,17 @@ export class ServiceProviderService {
       }
     }
 
-    if (active === 'statusAll') {
+    if (catalogue_id === CATALOGUE) {
+      if (active === 'statusAll') {
+        return this.http.get<Paging<ServiceBundle>>(this.base +
+          `/service/byProvider/${id}?catalogue_id=${catalogue_id}&from=${from}&quantity=${quantity}&order=${order}&sort=${sort}&keyword=${query}`, {params});
+      }
       return this.http.get<Paging<ServiceBundle>>(this.base +
-        `/service/byProvider/${id}?catalogue_id=${catalogue_id}&from=${from}&quantity=${quantity}&order=${order}&sort=${sort}&keyword=${query}`, {params});
+        `/service/byProvider/${id}?catalogue_id=${catalogue_id}&from=${from}&quantity=${quantity}&order=${order}&sort=${sort}&active=${active}&keyword=${query}`, {params});
+    } else {
+      return this.http.get<Paging<ServiceBundle>>(this.base +
+        `/catalogue/${catalogue_id}/${id}/service/all?from=${from}&quantity=${quantity}&order=${order}&sort=${sort}&keyword=${query}`, {params});
     }
-    return this.http.get<Paging<ServiceBundle>>(this.base +
-      `/service/byProvider/${id}?catalogue_id=${catalogue_id}&from=${from}&quantity=${quantity}&order=${order}&sort=${sort}&active=${active}&keyword=${query}`, {params});
   }
 
   getDatasourcesOfProvider(id: string, from: string, quantity: string, order: string, sort: string, active: string, status?: string, query?: string) {
@@ -285,7 +298,11 @@ export class ServiceProviderService {
   getProviderLoggingInfoHistory(providerId: string, catalogue_id: string) {
     providerId = decodeURIComponent(providerId);
     // return this.http.get<Paging<LoggingInfo>>(this.base + `/provider/loggingInfoHistory/${providerId}/`);
-    return this.http.get<Paging<LoggingInfo>>(this.base + `/provider/loggingInfoHistory/${providerId}?catalogue_id=${catalogue_id}`);
+    // return this.http.get<Paging<LoggingInfo>>(this.base + `/provider/loggingInfoHistory/${providerId}?catalogue_id=${catalogue_id}`);
+    if (catalogue_id === CATALOGUE)
+      return this.http.get<Paging<LoggingInfo>>(this.base + `/provider/loggingInfoHistory/${providerId}?catalogue_id=${catalogue_id}`);
+    else
+      return this.http.get<Paging<LoggingInfo>>(this.base + `/catalogue/${catalogue_id}/provider/loggingInfoHistory/${providerId}`);
   }
 
   suspendProvider(providerId: string, catalogueId: string, suspend: boolean) {
