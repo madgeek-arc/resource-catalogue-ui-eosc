@@ -145,6 +145,11 @@
                                      (input)="unsavedChangesPrompt()">
                             </div>
                           </div>
+
+                          <div class="uk-flex uk-flex-right">
+                            <button class="uk-button uk-button-secondary" type="button" (click)="switchToTab('tab13')">Next &nbsp;<i class="fa fa-arrow-circle-right fa-lg"></i></button>
+                          </div>
+
                         </li>
                         <!--DATASOURCE POLICIES-->
                         <li>
@@ -275,8 +280,13 @@
                             </div>
                           </div>
 
-                          <div class="uk-flex uk-flex-right">
-                            <button class="uk-button uk-button-secondary" type="button" (click)="switchToTab('tab14')">Next &nbsp;<i class="fa fa-arrow-circle-right fa-lg"></i></button>
+                          <div class="uk-flex justify-content-between">
+                            <div class="uk-flex-left">
+                              <button class="uk-button uk-button-secondary" type="button" (click)="switchToTab('tab12')"><i class="fa fa-arrow-circle-left fa-lg"></i>&nbsp; Previous</button>
+                            </div>
+                            <div class="uk-flex-right">
+                              <button class="uk-button uk-button-secondary" type="button" (click)="switchToTab('tab14')">Next &nbsp;<i class="fa fa-arrow-circle-right fa-lg"></i></button>
+                            </div>
                           </div>
 
                         </li>
