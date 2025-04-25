@@ -204,6 +204,7 @@ export const catalogueDescMap = new Map()
 
 export const datasourceDescMap = new Map()
   .set('nodeDesc', {mandatory: true, label: 'Node', placeholder: 'Select node...', desc: 'The node in which the Datasource belongs to.'})
+  .set('catalogueIdDesc', {mandatory: true, label: 'Catalogue', placeholder: '', desc: 'The catalogue in which the Datasource belongs to.'})
   // Data Source Policies //
   .set('submissionPolicyURLDesc', {mandatory: false, label: 'Submission Policy URL', placeholder: '', desc: 'This policy provides a comprehensive framework for the contribution of research products. Criteria for submitting content to the repository as well as product preparation guidelines can be stated. Concepts for quality assurance may be provided.'})
   .set('preservationPolicyURLDesc', {mandatory: false, label: 'Preservation Policy URL', placeholder: '', desc: 'This policy provides a comprehensive framework for the long-term preservation of the research products. Principles aims and responsibilities must be clarified. An important aspect is the description of preservation concepts to ensure the technical and conceptual utility of the content.'})

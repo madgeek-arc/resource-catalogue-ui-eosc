@@ -71,13 +71,18 @@
                       <div class="tabsTitle uk-margin-bottom">Datasource Subprofile Information Blocks</div>
                       <ul class="uk-width-1-1 uk-margin-remove uk-tab uk-tab-left form-tabs" uk-tab="connect: #top-navigation-tabs; animation: uk-animation-fade">
                         <li class="uk-active">
+                          <a class="remove-text-decoration uk-flex uk-flex-between" [ngClass]="{'form-error': tabs[11]}" href="#" id="tab12">
+                            <span>1. Basic information *</span>
+                          </a>
+                        </li>
+                        <li>
                           <a class="remove-text-decoration uk-flex uk-flex-between" [ngClass]="{'form-error': tabs[12]}" href="#" id="tab13">
-                            <span>1. Datasource Policies</span>
+                            <span>2. Datasource Policies</span>
                           </a>
                         </li>
                         <li>
                           <a class="remove-text-decoration uk-flex uk-flex-between" [ngClass]="{'form-error': tabs[13]}" href="#" id="tab14">
-                            <span>2. Datasource Content *</span>
+                            <span>3. Datasource Content *</span>
                             <span *ngIf="!disable" class="circle-number">
                               <i *ngIf="remainingOnTab13==0" aria-hidden="true" class="fa fa-check"></i>
 <!--                              {{remainingOnTab13!=0 ? remainingOnTab13 +'*' : ''}}-->
@@ -86,12 +91,12 @@
                         </li>
                         <li>
                           <a class="remove-text-decoration uk-flex uk-flex-between" [ngClass]="{'form-error': tabs[14]}" href="#" id="tab15">
-                            <span>3. Research Product Policies</span>
+                            <span>4. Research Product Policies</span>
                           </a>
                         </li>
                         <li>
                           <a class="remove-text-decoration uk-flex uk-flex-between" [ngClass]="{'form-error': tabs[15]}" href="#" id="tab16">
-                            <span>4. Research Product Metadata</span>
+                            <span>5. Research Product Metadata</span>
                           </a>
                         </li>
                       </ul>
@@ -111,6 +116,36 @@
                       <div class="formContainer">
 
                         <ul id="top-navigation-tabs" class="uk-switcher uk-margin-top uk-margin-bottom">
+                        <!--BASIC INFORMATION-->
+                        <li>
+                          <div class="uk-margin-large-bottom">
+                            <label class="uk-form-label uk-text-right" for="node">
+                              {{ nodeDesc.label + (nodeDesc.mandatory ? ' (*)' : '')}}
+                            </label>
+                            <div class="uk-form-description uk-margin-top uk-width-9-10">{{nodeDesc.desc}}</div>
+                            <div class="uk-form-controls uk-margin-top">
+                              <ng-select class="uk-width-9-10" id="node"
+                                         [items]="sortVocabulariesByName(nodeVocabulary)"
+                                         bindLabel="name"
+                                         bindValue="id"
+                                         clearAllText="Clear"
+                                         formControlName="node">
+                              </ng-select>
+                            </div>
+                          </div>
+                          <div class="uk-margin-large-bottom">
+                            <label class="uk-form-label uk-text-right" for="catalogueId">
+                              {{catalogueIdDesc.label + (catalogueIdDesc.mandatory ? ' (*)' : '')}}
+                            </label>
+                            <div
+                              class="uk-form-description uk-margin-top uk-width-9-10">{{catalogueIdDesc.desc}}</div>
+                            <div class="uk-form-controls uk-margin-top">
+                              <input id="catalogueId" class="uk-disabled uk-input uk-width-9-10" type="text" placeholder="eosc"
+                                     formControlName="catalogueId"
+                                     (input)="unsavedChangesPrompt()">
+                            </div>
+                          </div>
+                        </li>
                         <!--DATASOURCE POLICIES-->
                         <li>
                           <div class="uk-margin-large-bottom">

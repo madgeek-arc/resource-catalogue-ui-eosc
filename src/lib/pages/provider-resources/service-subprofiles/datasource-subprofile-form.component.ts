@@ -92,6 +92,9 @@ export class DatasourceSubprofileFormComponent implements OnInit {
   loaderBitSet = new BitSet;
   loaderPercentage = 0;
 
+  readonly nodeDesc: dm.Description = dm.datasourceDescMap.get('nodeDesc');
+  readonly catalogueIdDesc: dm.Description = dm.datasourceDescMap.get('catalogueIdDesc');
+
   readonly submissionPolicyURLDesc: dm.Description = dm.datasourceDescMap.get('submissionPolicyURLDesc');
   readonly preservationPolicyURLDesc: dm.Description = dm.datasourceDescMap.get('preservationPolicyURLDesc');
   readonly versionControlDesc: dm.Description = dm.datasourceDescMap.get('versionControlDesc');
@@ -116,6 +119,7 @@ export class DatasourceSubprofileFormComponent implements OnInit {
   formGroupMeta = {
     id: [''],
     serviceId: [''],
+    node: [''],
     catalogueId: ['eosc'],
 
     submissionPolicyURL: this.fb.control(''),
@@ -166,6 +170,7 @@ export class DatasourceSubprofileFormComponent implements OnInit {
   public researchEntityTypeVocabulary: Vocabulary[] = null;
   public persistentIdentitySchemeVocabulary: Vocabulary[] = null;
   public accessRightsVocabulary: Vocabulary[] = null;
+  public nodeVocabulary: Vocabulary[] = null;
 
   constructor(protected injector: Injector,
               protected authenticationService: AuthenticationService,
@@ -247,6 +252,7 @@ export class DatasourceSubprofileFormComponent implements OnInit {
         this.researchEntityTypeVocabulary = this.vocabularies[Type.DS_RESEARCH_ENTITY_TYPE];
         this.persistentIdentitySchemeVocabulary = this.vocabularies[Type.DS_PERSISTENT_IDENTITY_SCHEME];
         this.accessRightsVocabulary = this.vocabularies[Type.DS_COAR_ACCESS_RIGHTS_1_0];
+        this.nodeVocabulary = this.vocabularies[Type.NODE];
       },
       error => {
         this.errorMessage = 'Something went bad while getting the data for page initialization. ' + JSON.stringify(error.error.error);
