@@ -19,14 +19,14 @@ export class ServiceExtensionsService {
   //TODO: make it Catalogue specific
   getMonitoringByServiceId(serviceId: string) {
     serviceId = decodeURIComponent(serviceId);
-    return null
+    return null;
     // return this.http.get<Monitoring>(this.base + `/service-extensions/monitoring/byService/${serviceId}`, this.options);
   }
 
   //TODO: make it Catalogue specific
   getHelpdeskByServiceId(serviceId: string) {
     serviceId = decodeURIComponent(serviceId);
-    return null
+    return null;
     // return this.http.get<Helpdesk>(this.base + `/service-extensions/helpdesk/byService/${serviceId}`, this.options);
   }
 

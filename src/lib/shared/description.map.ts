@@ -68,6 +68,8 @@ export const serviceDescMap = new Map()
 // Basic Information //
   .set('nameDesc', {mandatory: true, label: 'Name', placeholder: 'Write full name...', desc: 'Brief and descriptive name of the Resource as assigned by the Provider.'})
   .set('abbreviationDesc', {mandatory: true, label: 'Abbreviation', placeholder: 'Write abbreviation...', desc: 'Abbreviation or short name of the Resource.'})
+  .set('nodeDesc', {mandatory: true, label: 'Node', placeholder: 'Select node...', desc: 'The node in which the Service belongs to.'})
+  .set('resourceCatalogueIdDesc', {mandatory: false, label: 'Catalogue', placeholder: 'Select catalogue...', desc: 'The ID of the Catalogue this Resource is originally registered at.'})
   .set('resourceOrganisationDesc', {mandatory: true, label: 'Resource Organisation', placeholder: 'Select resource organisation...', desc: 'The name of the organisation that manages or delivers the resource, or that coordinates the Resource delivery in a federated scenario.'})
   .set('resourceProvidersDesc', {mandatory: false, label: 'Resource Providers', placeholder: 'Select resource provider...', desc: 'The name(s) of (all) the Provider(s) that manage or deliver the Resource in federated scenarios.'})
   .set('webpageDesc', {mandatory: true,  label: 'Webpage', placeholder: 'Write webpage url...', desc: 'Webpage with information about the Resource usually hosted and maintained by the Provider.'})
@@ -130,7 +132,6 @@ export const serviceDescMap = new Map()
   .set('requiredServicesDesc', {mandatory: false, label: 'Required Resources', placeholder: 'Select required resources...', desc: 'List of other Resources required to use this Resource.'})
   .set('relatedServicesDesc', {mandatory: false, label: 'Related Resources', placeholder: 'Select related resources...', desc: 'List of other Resources that are commonly used with this Resource.'})
   .set('relatedPlatformsDesc', {mandatory: false, label: 'Related Platforms', placeholder: 'Write related platform...', desc: 'List of suites or thematic platforms in which the Resource is engaged or Providers (Provider groups) contributing to this Resource.'})
-  .set('resourceCatalogueIdDesc', {mandatory: false, label: 'Catalogue', placeholder: 'Select catalogue...', desc: 'The ID of the Catalogue this Resource is originally registered at.'})
 // Attribution Information //
   .set('fundingBodyDesc', {mandatory: false, label: 'Funding Body', placeholder: 'Select funding body...', desc: 'Name of the funding body that supported the development and/or operation of the Resource.'})
   .set('fundingProgramDesc', {mandatory: false, label: 'Funding Program', placeholder: 'Select funding program...', desc: 'Name of the funding program that supported the development and/or operation of the Resource.'})
@@ -202,7 +203,8 @@ export const catalogueDescMap = new Map()
 ;
 
 export const datasourceDescMap = new Map()
-// Data Source Policies //
+  .set('nodeDesc', {mandatory: true, label: 'Node', placeholder: 'Select node...', desc: 'The node in which the Datasource belongs to.'})
+  // Data Source Policies //
   .set('submissionPolicyURLDesc', {mandatory: false, label: 'Submission Policy URL', placeholder: '', desc: 'This policy provides a comprehensive framework for the contribution of research products. Criteria for submitting content to the repository as well as product preparation guidelines can be stated. Concepts for quality assurance may be provided.'})
   .set('preservationPolicyURLDesc', {mandatory: false, label: 'Preservation Policy URL', placeholder: '', desc: 'This policy provides a comprehensive framework for the long-term preservation of the research products. Principles aims and responsibilities must be clarified. An important aspect is the description of preservation concepts to ensure the technical and conceptual utility of the content.'})
   .set('versionControlDesc', {mandatory: false, label: 'Version Control', placeholder: '', desc: 'If data versioning is supported: the data source explicitly allows the deposition of different versions of the same object.'})

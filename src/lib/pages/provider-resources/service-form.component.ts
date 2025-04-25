@@ -52,7 +52,7 @@ export class ServiceFormComponent implements OnInit {
   disable = false;
   isPortalAdmin = false;
 
-  requiredOnTab0 = 4;
+  requiredOnTab0 = 5;
   requiredOnTab1 = 3;
   requiredOnTab2 = 3;
   requiredOnTab3 = 2;
@@ -83,7 +83,7 @@ export class ServiceFormComponent implements OnInit {
   completedTabs = 0;
   completedTabsBitSet = new BitSet;
 
-  allRequiredFields = 24;
+  allRequiredFields = 25;
   loaderBitSet = new BitSet;
   loaderPercentage = 0;
 
@@ -129,6 +129,7 @@ export class ServiceFormComponent implements OnInit {
 
   readonly nameDesc: dm.Description = dm.serviceDescMap.get('nameDesc');
   readonly abbreviationDesc: dm.Description = dm.serviceDescMap.get('abbreviationDesc');
+  readonly nodeDesc: dm.Description = dm.serviceDescMap.get('nodeDesc');
   readonly webpageDesc: dm.Description = dm.serviceDescMap.get('webpageDesc');
   readonly altIdTypeDesc: dm.Description = dm.serviceDescMap.get('altIdTypeDesc');
   readonly altIdValueDesc: dm.Description = dm.serviceDescMap.get('altIdValueDesc');
@@ -203,6 +204,7 @@ export class ServiceFormComponent implements OnInit {
     id: [''],
     name: ['', Validators.required],
     abbreviation: ['', Validators.required],
+    node: ['', Validators.required],
     webpage: ['', Validators.compose([Validators.required, URLValidator])],
     alternativeIdentifiers: this.fb.array([
       this.fb.group({
@@ -319,6 +321,7 @@ export class ServiceFormComponent implements OnInit {
   public placesVocabulary: Vocabulary[] = [];
   public geographicalVocabulary: Vocabulary[] = null;
   public languagesVocabulary: Vocabulary[] = null;
+  public nodeVocabulary: Vocabulary[] = null;
 
   constructor(protected injector: Injector,
               protected authenticationService: AuthenticationService,
@@ -459,6 +462,7 @@ export class ServiceFormComponent implements OnInit {
         this.geographicalVocabulary = this.vocabularies[Type.REGION];
         this.geographicalVocabulary.push(...this.vocabularies[Type.COUNTRY]);
         this.languagesVocabulary = this.vocabularies[Type.LANGUAGE];
+        this.nodeVocabulary = this.vocabularies[Type.NODE];
       },
       error => {
         this.errorMessage = 'Something went bad while getting the data for page initialization. ' + JSON.stringify(error.error.error);
@@ -609,6 +613,8 @@ export class ServiceFormComponent implements OnInit {
   markTabs() {
     this.tabs[0] = (this.checkFormValidity('name', this.editMode)
       || this.checkFormValidity('abbreviation', this.editMode)
+      || this.checkFormValidity('node', this.editMode)
+      || this.checkEveryArrayFieldValidity('catalogueId', this.editMode)
       || this.checkFormValidity('resourceOrganisation', this.editMode)
       || this.checkEveryArrayFieldValidity('resourceProviders', this.editMode)
       || this.checkFormValidity('webpage', this.editMode));
@@ -654,8 +660,7 @@ export class ServiceFormComponent implements OnInit {
       || this.checkEveryArrayFieldValidity('changeLog', this.editMode));
     this.tabs[7] = (this.checkEveryArrayFieldValidity('requiredResources', this.editMode)
       || this.checkEveryArrayFieldValidity('relatedResources', this.editMode)
-      || this.checkEveryArrayFieldValidity('relatedPlatforms', this.editMode)
-      || this.checkEveryArrayFieldValidity('catalogueId', this.editMode));
+      || this.checkEveryArrayFieldValidity('relatedPlatforms', this.editMode));
     this.tabs[8] = (this.checkEveryArrayFieldValidity('fundingBody', this.editMode)
       || this.checkEveryArrayFieldValidity('fundingPrograms', this.editMode)
       || this.checkEveryArrayFieldValidity('grantProjectNames', this.editMode));
