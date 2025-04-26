@@ -16,18 +16,16 @@ export class ServiceExtensionsService {
   base = environment.API_ENDPOINT;
   private options = {withCredentials: true};
 
-  //TODO: make it Catalogue specific
+  //native catlogue call only
   getMonitoringByServiceId(serviceId: string) {
     serviceId = decodeURIComponent(serviceId);
-    return null;
-    // return this.http.get<Monitoring>(this.base + `/service-extensions/monitoring/byService/${serviceId}`, this.options);
+    return this.http.get<Monitoring>(this.base + `/service-extensions/monitoring/byService/${serviceId}`, this.options);
   }
 
-  //TODO: make it Catalogue specific
+  //native catlogue call only
   getHelpdeskByServiceId(serviceId: string) {
     serviceId = decodeURIComponent(serviceId);
-    return null;
-    // return this.http.get<Helpdesk>(this.base + `/service-extensions/helpdesk/byService/${serviceId}`, this.options);
+    return this.http.get<Helpdesk>(this.base + `/service-extensions/helpdesk/byService/${serviceId}`, this.options);
   }
 
   getMonitoringService(id: string) {
