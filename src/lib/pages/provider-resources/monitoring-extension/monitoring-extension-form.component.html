@@ -111,8 +111,8 @@
                                     <ng-select class="uk-width-1-1" id="serviceType"
                                                [items]="serviceTypesVoc"
                                                (change)="unsavedChangesPrompt(); findTypeDescription(i)"
-                                               bindLabel="title"
-                                               bindValue="name"
+                                               bindLabel="name"
+                                               bindValue="id"
                                                clearAllText="Clear"
                                                formControlName="serviceType">
                                     </ng-select>
