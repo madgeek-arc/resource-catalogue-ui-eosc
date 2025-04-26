@@ -247,12 +247,12 @@ export class DatasourceSubprofileFormComponent implements OnInit {
     this.resourceService.getAllVocabulariesByType().subscribe(
       suc => {
         this.vocabularies = <Map<string, Vocabulary[]>>suc;
+        this.nodeVocabulary = this.vocabularies[Type.NODE];
         this.jurisdictionVocabulary = this.vocabularies[Type.DS_JURISDICTION];
         this.classificationVocabulary = this.vocabularies[Type.DS_CLASSIFICATION];
         this.researchEntityTypeVocabulary = this.vocabularies[Type.DS_RESEARCH_ENTITY_TYPE];
         this.persistentIdentitySchemeVocabulary = this.vocabularies[Type.DS_PERSISTENT_IDENTITY_SCHEME];
         this.accessRightsVocabulary = this.vocabularies[Type.DS_COAR_ACCESS_RIGHTS_1_0];
-        this.nodeVocabulary = this.vocabularies[Type.NODE];
       },
       error => {
         this.errorMessage = 'Something went bad while getting the data for page initialization. ' + JSON.stringify(error.error.error);

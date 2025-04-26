@@ -125,7 +125,7 @@
                             <div class="uk-form-description uk-margin-top uk-width-9-10">{{nodeDesc.desc}}</div>
                             <div class="uk-form-controls uk-margin-top">
                               <ng-select class="uk-width-9-10" id="node"
-                                         [items]="sortVocabulariesByName(nodeVocabulary)"
+                                         [items]="nodeVocabulary"
                                          bindLabel="name"
                                          bindValue="id"
                                          clearAllText="Clear"

@@ -441,6 +441,7 @@ export class ServiceFormComponent implements OnInit {
         this.requiredResources = suc[2];
         this.relatedResources = this.requiredResources;
         // this.getLocations();
+        this.nodeVocabulary = this.vocabularies[Type.NODE];
         this.targetUsersVocabulary = this.vocabularies[Type.TARGET_USER];
         this.accessTypesVocabulary = this.vocabularies[Type.ACCESS_TYPE];
         this.accessModesVocabulary = this.vocabularies[Type.ACCESS_MODE];
@@ -462,7 +463,6 @@ export class ServiceFormComponent implements OnInit {
         this.geographicalVocabulary = this.vocabularies[Type.REGION];
         this.geographicalVocabulary.push(...this.vocabularies[Type.COUNTRY]);
         this.languagesVocabulary = this.vocabularies[Type.LANGUAGE];
-        this.nodeVocabulary = this.vocabularies[Type.NODE];
       },
       error => {
         this.errorMessage = 'Something went bad while getting the data for page initialization. ' + JSON.stringify(error.error.error);

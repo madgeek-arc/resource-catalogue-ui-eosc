@@ -203,7 +203,7 @@
                             <div class="uk-form-controls uk-margin-top">
                               <ng-select class="uk-width-9-10" id="node"
                                          [ngClass]="{'uk-form-danger': checkFormValidity('node', this.edit)}"
-                                         [items]="sortVocabulariesByName(nodeVocabulary)"
+                                         [items]="nodeVocabulary"
                                          (input)="handleBitSets(0, 21, 'node'); unsavedChangesPrompt()"
                                          (change)="handleBitSets(0, 21, 'node'); unsavedChangesPrompt()"
                                          bindLabel="name"
