@@ -55,7 +55,7 @@ export class ResourceDashboardComponent implements OnInit {
       res => { if (res!=null) this.resourceBundle = res },
       error => {},
       () => {
-        this.datasourceService.getDatasourceByServiceId(this.resourceId).subscribe(
+        this.datasourceService.getDatasourceByServiceId(this.resourceId, this.catalogueId).subscribe(
           res => { if (res!=null) this.datasourceId = res.id }
         );
         if (this.catalogueId === this.CATALOGUE){

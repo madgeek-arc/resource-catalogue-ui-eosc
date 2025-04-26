@@ -114,6 +114,7 @@ export class DatasourceService {
 
     if(!catalogueId) catalogueId = CATALOGUE;
     if (catalogueId === CATALOGUE)
+
       return this.http.get<Datasource>(this.base + `/datasource/byService/${serviceId}?catalogue_id=${catalogueId}`, this.options);
     else
       return this.http.get<Datasource>(this.base + `/catalogue/${catalogueId}/datasource/${serviceId}`, this.options);
