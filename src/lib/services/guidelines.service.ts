@@ -113,6 +113,6 @@ export class GuidelinesService {
     if (catalogueId === CATALOGUE)
       return this.http.patch(this.base + `/interoperabilityRecord/auditResource/${id}?actionType=${action}&catalogueId=${catalogueId}&comment=${comment}`, this.options);
     else
-      return this.http.patch(this.base + `/catalogue/${catalogueId}/interoperabilityRecord/auditInteroperabilityRecord/${id}`, this.options);
+      return this.http.patch(this.base + `/catalogue/${catalogueId}/interoperabilityRecord/auditInteroperabilityRecord/${id}?actionType=${action}&comment=${comment}`, this.options);
   }
 }

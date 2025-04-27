@@ -336,7 +336,7 @@ export class TrainingResourceService {
     if (catalogueId === CATALOGUE)
       return this.http.patch(this.base + `/trainingResource/auditResource/${id}?actionType=${action}&catalogueId=${catalogueId}&comment=${comment}`, this.options);
     else
-      return this.http.patch(this.base + `/catalogue/${catalogueId}/trainingResource/auditTrainingResource/${id}`, this.options);
+      return this.http.patch(this.base + `/catalogue/${catalogueId}/trainingResource/auditTrainingResource/${id}?actionType=${action}&comment=${comment}`, this.options);
   }
 
   verifyTrainingResource(id: string, active: boolean, status: string) { // for 1st service

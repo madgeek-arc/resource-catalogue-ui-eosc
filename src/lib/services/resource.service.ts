@@ -537,7 +537,7 @@ export class ResourceService {
     if (catalogueId === CATALOGUE)
       return this.http.patch(this.base + `/service/auditResource/${id}?actionType=${action}&catalogueId=${catalogueId}&comment=${comment}`, this.options);
     else
-      return this.http.patch(this.base + `/catalogue/${catalogueId}/service/auditService/${id}`, this.options);
+      return this.http.patch(this.base + `/catalogue/${catalogueId}/service/auditService/${id}?actionType=${action}&comment=${comment}`, this.options);
   }
 
   //TODO: unsued - remove

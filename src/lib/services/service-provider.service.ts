@@ -67,7 +67,7 @@ export class ServiceProviderService {
     if (catalogueId === CATALOGUE)
       return this.http.patch(this.base + `/provider/auditProvider/${id}?actionType=${action}&catalogueId=${catalogueId}&comment=${comment}`, this.options);
     else
-      return this.http.patch(this.base + `/catalogue/${catalogueId}/provider/auditProvider/${id}`, this.options);
+      return this.http.patch(this.base + `/catalogue/${catalogueId}/provider/auditProvider/${id}?actionType=${action}&comment=${comment}`, this.options);
   }
 
   requestProviderDeletion(id: string) {
