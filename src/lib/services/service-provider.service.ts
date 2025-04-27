@@ -48,7 +48,7 @@ export class ServiceProviderService {
   }
 
   updateServiceProvider(updatedFields: any, comment: string): Observable<Provider> {
-    console.log(`knocking on: ${this.base}/provider`);
+    // console.log(`knocking on: ${this.base}/provider`);
     return this.http.put<Provider>(this.base + `/provider?comment=${comment}`, updatedFields, this.options);
   }
 
