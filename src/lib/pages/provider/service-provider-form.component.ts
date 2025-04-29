@@ -45,7 +45,7 @@ export class ServiceProviderFormComponent implements OnInit {
   tabs: boolean[] = [false, false, false, false, false, false, false, false];
   isPortalAdmin = false;
 
-  requiredOnTab0 = 5;
+  requiredOnTab0 = 4;
   requiredOnTab1 = 2;
   requiredOnTab3 = 4;
   requiredOnTab4 = 2;
@@ -67,7 +67,7 @@ export class ServiceProviderFormComponent implements OnInit {
   completedTabs = 0;
   completedTabsBitSet = new BitSet;
 
-  allRequiredFields = 18;
+  allRequiredFields = 17;
   loaderBitSet = new BitSet;
   loaderPercentage = 0;
 
@@ -163,7 +163,7 @@ export class ServiceProviderFormComponent implements OnInit {
     id: [''],
     name: ['', Validators.required],
     abbreviation: ['', Validators.required],
-    node: ['', Validators.required],
+    node: [''],
     website: ['', Validators.compose([Validators.required, URLValidator])],
     legalEntity: [''],
     legalStatus: [''],

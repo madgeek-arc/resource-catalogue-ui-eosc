@@ -42,7 +42,7 @@ export class CatalogueFormComponent implements OnInit {
   tabs: boolean[] = [false, false, false, false, false, false, false, false];
   isPortalAdmin = false;
 
-  requiredOnTab0 = 9;
+  requiredOnTab0 = 8;
   requiredOnTab1 = 2;
   requiredOnTab3 = 4;
   requiredOnTab4 = 2;
@@ -64,7 +64,7 @@ export class CatalogueFormComponent implements OnInit {
   completedTabs = 0;
   completedTabsBitSet = new BitSet;
 
-  allRequiredFields = 22;
+  allRequiredFields = 21;
   loaderBitSet = new BitSet;
   loaderPercentage = 0;
 
@@ -138,7 +138,7 @@ export class CatalogueFormComponent implements OnInit {
     id: [''],
     name: ['', Validators.required],
     abbreviation: ['', Validators.required],
-    node: ['', Validators.required],
+    node: [''],
     website: ['', Validators.compose([Validators.required, URLValidator])],
     legalEntity: [''],
     legalStatus: [''],

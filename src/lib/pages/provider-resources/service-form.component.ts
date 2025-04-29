@@ -52,7 +52,7 @@ export class ServiceFormComponent implements OnInit {
   disable = false;
   isPortalAdmin = false;
 
-  requiredOnTab0 = 5;
+  requiredOnTab0 = 4;
   requiredOnTab1 = 3;
   requiredOnTab2 = 3;
   requiredOnTab3 = 2;
@@ -83,7 +83,7 @@ export class ServiceFormComponent implements OnInit {
   completedTabs = 0;
   completedTabsBitSet = new BitSet;
 
-  allRequiredFields = 25;
+  allRequiredFields = 24;
   loaderBitSet = new BitSet;
   loaderPercentage = 0;
 
@@ -204,7 +204,7 @@ export class ServiceFormComponent implements OnInit {
     id: [''],
     name: ['', Validators.required],
     abbreviation: ['', Validators.required],
-    node: ['', Validators.required],
+    node: [''],
     webpage: ['', Validators.compose([Validators.required, URLValidator])],
     alternativeIdentifiers: this.fb.array([
       this.fb.group({

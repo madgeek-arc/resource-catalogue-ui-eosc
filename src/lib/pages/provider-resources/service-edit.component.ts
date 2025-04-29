@@ -142,7 +142,6 @@ export class ServiceEditComponent extends ServiceFormComponent implements OnInit
   initServiceBitSets() {
     this.handleBitSets(0, 0, 'name');
     this.handleBitSets(0, 21, 'abbreviation');
-    this.handleBitSets(0, 24, 'node');
     this.handleBitSets(0, 1, 'resourceOrganisation');
     this.handleBitSets(0, 2, 'webpage');
     this.handleBitSets(1, 3, 'description');
