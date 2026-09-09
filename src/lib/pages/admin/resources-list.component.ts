@@ -94,7 +94,7 @@ export class ResourcesListComponent implements OnInit {
   serviceTemplatePerProvider: any[] = [];
 
   providersFormPrepare = {
-    resourceOwner: ''
+    resourceOrganisation: ''
   };
   providersDropdownForm: UntypedFormGroup;
   providersPage: Paging<Provider>;
