@@ -244,9 +244,9 @@
                                   <div class="uk-margin-small-top">
                                     <span class="statusLabel">Linked Resource ID: </span>{{ adapterBundle.adapter.linkedResource.id }}
                                   </div>
-                                  @if (adapterBundle.catalogueId != null) {
+                                  @if (adapterBundle.adapter.resourceOwner) {
                                     <div class="uk-margin-small-top">
-                                      <span class="statusLabel">Catalogue ID: </span>{{ adapterBundle.catalogueId }}
+                                      <span class="statusLabel">Resource Organisation: </span>{{ providersPage?.results ? getProviderNameWithId(adapterBundle.adapter.resourceOwner) : ''}}
                                     </div>
                                   }
                                 </div>
@@ -324,6 +324,11 @@
                                   </li>
                                   <li class="uk-nav-divider"></li>
                                 }
+                                <li class="uk-margin-small-bottom"
+                                  (click)="showMoveResourceModal(adapterBundle)">
+                                  <a><span class="material-symbols-outlined uk-margin-small-right" style="vertical-align: middle;">move_item</span>Change Provider</a>
+                                </li>
+                                <li class="uk-nav-divider"></li>
                                 @if ((adapterBundle.status === 'approved') && (!adapterBundle.active)) {
                                   <li
                                     (click)="activateAdapter(adapterBundle.id, true)"
@@ -455,6 +460,54 @@
           <button class="uk-button uk-button-default uk-modal-close uk-margin-small-right" type="button">Cancel</button>
           <button class="uk-button uk-button-danger uk-modal-close" type="button" (click)="suspendAdapter()">
           {{selectedAdapter.suspended==true ? 'Unsuspend' : 'Suspend'}}</button>
+        </div>
+      }
+    </div>
+  }
+  @if (loadingMessage) {
+    <div>
+      <div class="loader-small" style="text-align: center; padding-top: 170px; color: rgb(47, 64, 80); font-weight: bold;">
+        {{ loadingMessage }}
+      </div>
+      <!--    <div class="whiteFilm"></div>-->
+    </div>
+  }
+</div>
+
+<div id="moveResourceModal" uk-modal>
+  @if (!loadingMessage) {
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      @if (selectedAdapter) {
+        <div>
+          <p>Adapter "{{ selectedAdapter.adapter.name }}" is currently managed by provider "{{ selectedAdapter.adapter.resourceOwner }}."</p>
+          <p>Choose another provider to move "{{ selectedAdapter.adapter.name }}".</p>
+          <p style="color: grey">The initial adapter will be deleted from its current provider.</p>
+          <form [formGroup]="providersDropdownForm">
+            <div class="uk-form-controls uk-margin-medium-top">
+              @if (providersPage?.results?.length > 0) {
+                <ng-select class="uk-width-10-10" id="resourceOrganisation"
+                  [items]="providersPage.results"
+                  bindLabel="name"
+                  bindValue="id"
+                  clearAllText="Clear"
+                  formControlName="resourceOrganisation">
+                </ng-select>
+              }
+            </div>
+            <div class="uk-margin-medium-top">
+              <p>Please fill in the reason(s) of your action. <span style="color: grey">(optional)</span></p>
+            </div>
+            <form>
+              <div class="uk-margin">
+                <textarea class="uk-textarea" rows="5" placeholder="optional comment" [formControl]="commentMoveControl"></textarea>
+              </div>
+            </form>
+            <div class="uk-text-right">
+              <button class="uk-button uk-button-default uk-modal-close uk-margin-small-right" type="button">Cancel</button>
+              <button class="uk-button uk-button-primary uk-modal-close" type="button"
+                (click)="moveResourceToProvider(selectedAdapter.id, providersDropdownForm.get('resourceOrganisation').value)">OK</button>
+            </div>
+          </form>
         </div>
       }
     </div>

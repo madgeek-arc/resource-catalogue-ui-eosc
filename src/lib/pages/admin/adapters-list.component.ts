@@ -1,14 +1,16 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {ProviderBundle, Adapter, AdapterBundle, LoggingInfo} from '../../domain/eic-model';
+import {ProviderBundle, Adapter, AdapterBundle, LoggingInfo, Provider} from '../../domain/eic-model';
 import {ConfigService} from "../../services/config.service";
 import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../services/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {URLParameter} from '../../domain/url-parameter';
+import {Paging} from '../../domain/paging';
 import {NavigationService} from '../../services/navigation.service';
 import {pidHandler} from "../../shared/pid-handler/pid-handler.service";
 import {AdaptersService} from "../../services/adapters.service";
+import {ResourceService} from '../../services/resource.service';
 import {DeduplicationService, SimilarResource} from '../../services/deduplication.service';
 
 declare let UIkit: any;
@@ -66,6 +68,13 @@ export class AdaptersListComponent implements OnInit {
   duplicatePageTotal = 0;
   duplicatePages: number[] = [];
 
+  providersFormPrepare = {
+    resourceOrganisation: ''
+  };
+  providersDropdownForm: UntypedFormGroup;
+  providersPage: Paging<Provider>;
+  commentMoveControl = new UntypedFormControl();
+
   facets: any;
 
   total: number;
@@ -82,6 +91,7 @@ export class AdaptersListComponent implements OnInit {
   @ViewChildren('auditCheckboxes') auditCheckboxes: QueryList<ElementRef>;
 
   constructor(private adaptersService: AdaptersService,
+              private resourceService: ResourceService,
               private authenticationService: AuthenticationService,
               private route: ActivatedRoute,
               private router: Router,
@@ -98,6 +108,7 @@ export class AdaptersListComponent implements OnInit {
       this.router.navigateByUrl('/home');
     } else {
       this.dataForm = this.fb.group(this.formPrepare);
+      this.providersDropdownForm = this.fb.group(this.providersFormPrepare);
 
       this.dataForm.get('query').valueChanges.subscribe(val => {
         if (val && val !== '') {
@@ -152,6 +163,20 @@ export class AdaptersListComponent implements OnInit {
           },
           error => this.errorMessage = <any>error
         );
+
+      this.resourceService.getProvidersNames('approved').subscribe(suc => {
+          this.providersPage = <Paging<Provider>>suc;
+        },
+        err => {
+          this.errorMessage =
+          (err?.status >= 500 && err?.status < 600)
+            ? `Something went wrong. If the issue persists, please contact support and provide the following error code: ${err?.error?.traceId}`
+            : `Something went bad while getting the data for page initialization: ${err?.error?.detail}`;
+        },
+        () => {
+          this.providersPage.results.sort((a, b) => 0 - (a.name > b.name ? -1 : 1));
+        }
+      );
     }
   }
 
@@ -323,6 +348,32 @@ export class AdaptersListComponent implements OnInit {
           this.loadingMessage = '';
         }
       );
+  }
+
+  showMoveResourceModal(bundle: AdapterBundle) {
+    this.commentMoveControl.reset();
+    this.selectedAdapter = bundle;
+    if (this.selectedAdapter) {
+      UIkit.modal('#moveResourceModal').show();
+    }
+  }
+
+  moveResourceToProvider(adapterId, providerId) {
+    UIkit.modal('#spinnerModal').show();
+    this.adaptersService.moveAdapterToProvider(adapterId, providerId, this.commentMoveControl.value).subscribe(
+      res => {},
+      err => {
+        UIkit.modal('#spinnerModal').hide();
+        this.errorMessage = (err?.status >= 500 && err?.status < 600)
+            ? `Something went wrong. If the issue persists, please contact support and provide the following error code: ${err?.error?.traceId}`
+            : `Something went bad, server responded: ${err?.error?.detail}`;
+        this.getAdapters();
+      },
+      () => {
+        UIkit.modal('#spinnerModal').hide();
+        window.location.reload();
+      }
+    );
   }
 
   verifyAdapter(id: string, active: boolean, status: string){
@@ -523,6 +574,10 @@ export class AdaptersListComponent implements OnInit {
       this.dataForm.get('from').setValue(+this.dataForm.get('from').value + +this.dataForm.get('quantity').value);
       this.handleChange();
     }
+  }
+
+  getProviderNameWithId(id: string) {
+    return this.providersPage.results.find( x => x.id === id )?.name;
   }
 
   searchForDuplicates(bundle: AdapterBundle) {
